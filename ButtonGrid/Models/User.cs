@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace ButtonGrid.Models
 {
-	public class ButtonModel
+	public class User
 	{
+		
 		public int Id { get; set; }
-		public int ButtonState { get; set; }
-		public static int ButtonScore { get; set; }
+		public string UserName { get; set; }
+		public int Score { get; set; }
 	}
 }

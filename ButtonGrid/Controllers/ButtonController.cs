@@ -9,9 +9,13 @@ namespace ButtonGrid.Controllers
 {
 	public class ButtonController : Controller
 	{
+		private readonly IUserRepository userRepository;
+
 		static List<ButtonModel> buttons = new List<ButtonModel>();
 		Random random = new Random();
 		const int GRID_SIZE = 25;
+		static int score = 1;
+		
 
 		public IActionResult Index()
 		{
@@ -29,20 +33,28 @@ namespace ButtonGrid.Controllers
 
 		public IActionResult HandleButtonClick(string buttonNumber)
 		{
+			ButtonModel.ButtonScore = score;
+			//int score = buttonScore;
 			int bn = int.Parse(buttonNumber);
 			buttons.ElementAt(bn).ButtonState = (buttons.ElementAt(bn).ButtonState + 1) % 2;
-
-			if(bn + 1< buttons.Count)
+			ButtonModel btnState = new ButtonModel();
+			
+			
+			score++;
+			
+			if (bn + 1< buttons.Count)
 			{
 				if(bn %5 != 4)
 				{
 					if(buttons[bn + 1].ButtonState == 0)
 					{
 						buttons[bn + 1].ButtonState = 1;
+						
 					}
 					else
 					{
 						buttons[bn + 1].ButtonState = 0;
+						
 					}
 				}
 			}
@@ -54,10 +66,12 @@ namespace ButtonGrid.Controllers
 					if (buttons[bn - 1].ButtonState == 0)
 					{
 						buttons[bn - 1].ButtonState = 1;
+						
 					}
 					else
 					{
 						buttons[bn - 1].ButtonState = 0;
+						
 					}
 				}
 			}
@@ -67,10 +81,12 @@ namespace ButtonGrid.Controllers
 				if(buttons[bn + 5].ButtonState == 0)
 				{
 					buttons[bn + 5].ButtonState = 1;
+					
 				}
 				else
 				{
 					buttons[bn + 5].ButtonState = 0;
+					
 				}
 			}
 
@@ -79,14 +95,30 @@ namespace ButtonGrid.Controllers
 				if (buttons[bn - 5].ButtonState == 0)
 				{
 					buttons[bn - 5].ButtonState = 1;
+					
 				}
 				else
 				{
 					buttons[bn - 5].ButtonState = 0;
+					
 				}
 			}
 
+			foreach(var item in buttons)
+			{
+				
+			}	
+
 			return View("index", buttons);
+		}
+
+
+		public IActionResult InsertUserToDatabase(User userToInsert)
+		{
+
+			userRepository.InsertUser(userToInsert);
+
+			return RedirectToAction("Index");
 		}
 	}
 }

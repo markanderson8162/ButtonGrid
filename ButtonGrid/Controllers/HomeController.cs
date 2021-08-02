@@ -11,16 +11,21 @@ namespace ButtonGrid.Controllers
 {
 	public class HomeController : Controller
 	{
+		private readonly IUserRepository userRepository;
+
 		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IUserRepository userRepository)
 		{
 			_logger = logger;
+			this.userRepository = userRepository;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			Users users = new Users();
+			users.AllUsers = userRepository.GetAllUsers();
+			return View(users);
 		}
 
 		public IActionResult Privacy()
@@ -32,6 +37,19 @@ namespace ButtonGrid.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+
+		public IActionResult InsertUserToDatabase(User userToInsert)
+		{
+
+			userRepository.InsertUser(userToInsert);
+
+			return RedirectToAction("Index");
+		}
+
+		public IActionResult DeleteUser (User userToDelete)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

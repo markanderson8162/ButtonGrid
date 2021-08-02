@@ -34,6 +34,7 @@
 <div class="button-zone">
 @for(int i = 0; i < Model.Count(); i++)
 {
+    
     if(i  % 5 == 0)
 	{
         <div class="line-break"></div>
@@ -46,28 +47,11 @@
         </div>
     </button>
 }
+
+    </div>
+    <div>
+        Score: @ButtonModel.ButtonScore
     </div>
 </form>
-@*@foreach (var item in Model)
-{
 
-    @if (item.ButtonState == 0)
-    {
-        <img src="~/img/blue circle.png" width="100" />
-    }
 
-    @if (item.ButtonState == 1)
-    {
-        <img src="~/img/green circle.png" width="100" />
-    }
-
-    @if (item.ButtonState == 2)
-    {
-        <img src="~/img/red circle.png" width="100" />
-    }
-
-    @if (item.ButtonState == 3)
-    {
-        <img src="~/img/yellow circle.png" width="100" />
-    }
-}*@
