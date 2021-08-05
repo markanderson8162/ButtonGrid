@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ButtonGrid.Models.ButtonModel>
+﻿@model Game
 
 <style>
     .game-button {
@@ -6,52 +6,108 @@
         border: none;
     }
 
-    .game-button-image{
+    .game-button-image {
         width: 70%;
     }
 
-    .button-zone{
+    .button-zone {
         display: flex;
         flex-wrap: wrap;
     }
 
-    .line-break{
+    .line-break {
         flex-basis: 100%;
         height: 0;
     }
 
-    .button-label{
+    .button-label {
         font-size: 8px;
         text-align: center;
     }
 </style>
 
-@{ 
-    string[] imagenames = { "green circle.png", "red circle.png"};
+@{
+    string[] imagenames = { "green circle.png", "red circle.png" };
 }
 
 <form>
-<div class="button-zone">
-@for(int i = 0; i < Model.Count(); i++)
-{
-    
-    if(i  % 5 == 0)
-	{
-        <div class="line-break"></div>
-	}
-    <button  class="game-button" name="buttonNumber" value="@Model.ElementAt(i).Id  "type="submit" asp-controller="button" asp-action="HandleButtonClick">
-        <img class="game-button-image" src="~/img/@imagenames[Model.ElementAt(i).ButtonState]" />
+    <div class="button-zone">
+        @for (int i = 0; i < Model.Buttons.Count(); i++)
+        {
 
-        <div class="button-label">
-            @Model.ElementAt(i).Id , @Model.ElementAt(i).ButtonState
-        </div>
-    </button>
-}
+            if (i % 5 == 0)
+            {
+                <div class="line-break"></div>
+            }
+            <button class="game-button" name="buttonNumber" value="@Model.Buttons.ElementAt(i).Id  " type="submit" asp-controller="button" asp-action="HandleButtonClick">
+                <img class="game-button-image" src="~/img/@imagenames[Model.Buttons.ElementAt(i).ButtonState]" />
+
+                <div class="button-label">
+                    @Model.Buttons.ElementAt(i).Id , @Model.Buttons.ElementAt(i).ButtonState
+                </div>
+            </button>
+        }
 
     </div>
     <div>
         Score: @ButtonModel.ButtonScore
-    </div>
+        </div>
 </form>
+
+<h2>Enter your name after you win!</h2>
+@using (Html.BeginForm("InsertUserToDatabase", "Button", "Post"))
+{
+    var btnModel = new ButtonModel();
+    var game = new Game();
+    game.GameUsers = new Users();
+
+    var user = new User();
+    game.GameUsers.NewUser = user;
+    if (ButtonModel.ButtonScore > 0)
+    {
+        game.GameUsers.NewUser.Score = ButtonModel.ButtonScore;
+    }
+    <input asp-for="GameUsers.NewUser.Id" type="hidden" />
+    <label  asp-for="GameUsers.NewUser.UserName" class="control-label">Username</label>
+
+
+    <input type="text" name="UserName" class="form-control" />
+    
+
+    <input asp-for="GameUsers.NewUser.Score" type="hidden" />
+
+    
+
+
+
+    <div class="form-group">
+
+
+    </div>
+    <input type="submit" value="Add Name" class="btn btn-primary" />
+}
+
+<table class="table table-striped table-dark pagination-lg">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th> Score</th>
+
+        </tr>
+    </thead>
+
+    @foreach (var user in Model.GameUsers.AllUsers)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.UserName</td>
+            <td>@user.Score</td>
+
+
+        </tr>
+    }
+
+</table>
 
 

@@ -9,5 +9,7 @@ namespace ButtonGrid.Models
 	{
 		public User NewUser { get; set; }
 		public IEnumerable<User> AllUsers { get; set; } 
+
+
 	}
 }

@@ -44,7 +44,7 @@ namespace ButtonGrid.Controllers
 
 			userRepository.InsertUser(userToInsert);
 
-			return RedirectToAction("Index");
+			return RedirectToAction("Index","Button");
 		}
 
 		public IActionResult DeleteUser (User userToDelete)

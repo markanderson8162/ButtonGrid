@@ -17,7 +17,7 @@ namespace ButtonGrid.Models
         }
 		public IEnumerable<User> GetAllUsers()
         {
-            return _conn.Query<User>("SELECT * FROM username;");
+            return _conn.Query<User>("SELECT * FROM username Order by Id desc;");
         }
 
 		public void DeleteUser(User username)
