@@ -51,7 +51,8 @@
     </div>
     <div>
         Score: @ButtonModel.ButtonScore
-        </div>
+    </div>
+
 </form>
 
 <h2>Enter your name after you win!</h2>
@@ -68,15 +69,15 @@
         game.GameUsers.NewUser.Score = ButtonModel.ButtonScore;
     }
     <input asp-for="GameUsers.NewUser.Id" type="hidden" />
-    <label  asp-for="GameUsers.NewUser.UserName" class="control-label">Username</label>
+    <label asp-for="GameUsers.NewUser.UserName" class="control-label">Username</label>
 
 
     <input type="text" name="UserName" class="form-control" />
-    
+
 
     <input asp-for="GameUsers.NewUser.Score" type="hidden" />
 
-    
+
 
 
 
@@ -85,8 +86,10 @@
 
     </div>
     <input type="submit" value="Add Name" class="btn btn-primary" />
+    
+    <a class="button-text btn-danger btn" href=/Button/ResetScore>Reset Game</a>
+   
 }
-
 <table class="table table-striped table-dark pagination-lg">
     <thead class="thead-dark">
         <tr>
@@ -96,6 +99,7 @@
 
         </tr>
     </thead>
+
 
     @foreach (var user in Model.GameUsers.AllUsers)
     {

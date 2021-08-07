@@ -33,6 +33,11 @@ namespace ButtonGrid.Controllers
 			return View();
 		}
 
+		public IActionResult Game()
+		{
+			return View("Buttons");
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{

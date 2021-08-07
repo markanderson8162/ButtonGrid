@@ -4,45 +4,18 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-@*<h2>Create a New Product</h2>
-@using (Html.BeginForm("InsertUserToDatabase", "Home", "Post"))
-{
-<input asp-for="NewUser.Id" type="hidden" />
-
-<label asp-for="NewUser.UserName" class="control-label">Username</label>
-
-     <input type="text" name="UserName" class="form-control" />
-
-   <label asp-for="NewUser.Score" class="control-label">Score</label>
-
-
-
-  <div class="form-group">
-
-
-   </div>
-   <input type="submit" value="Add Name" class="btn btn-primary" />}
-
-<table class="table table-striped table-dark pagination-lg">
-    <thead class="thead-dark">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Score</th>
-
-        </tr>
-    </thead>
-
-    @foreach (var user in Model.AllUsers)
-    {
-        <tr>
-            <td>@user.Id</td>
-            <td>@user.UserName</td>
-            <td>@user.Score</td>
-
-
-        </tr>
+<style>
+    .title-screen{
+        text-align: center;
     }
+</style>
 
-</table>*@
+<body>
+<div class="title-screen">
+<h1>Lights Out!</h1>
+<h3>Click on all the green lights to turn them red!</h3>
+<h3>
+    @Html.ActionLink("Click here to play", "", "Button")
+</h3>
+</div>
+</body>

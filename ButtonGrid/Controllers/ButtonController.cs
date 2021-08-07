@@ -157,11 +157,20 @@ namespace ButtonGrid.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public int ResetScore()
+		public IActionResult ResetScore()
 		{
-			ButtonModel.ButtonScore = 1;
-			score = ButtonModel.ButtonScore;
-			return score;
+			ButtonModel.ButtonScore = 0;
+			score = ButtonModel.ButtonScore +1;
+
+
+			buttons.Clear();
+			for (int i = 0; i < GRID_SIZE; i++)
+			{
+				buttons.Add(new ButtonModel { Id = i, ButtonState = random.Next(2) });
+
+			}
+
+			return RedirectToAction("Index");
 		}
 	}
 }
